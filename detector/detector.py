@@ -25,8 +25,14 @@ while True:
     results = model(transformed_image)
 
     if len(results) > 0:
-        plot = results[0].plot()
-        cv2.imshow('Uno Cards', plot)
+        first_result = results[0]
+
+        plot = first_result.plot()
+        cv2.imshow('Detected Uno Cards', plot)
+
+        for box in first_result.boxes:
+            # get coordinates of the bounding box
+            coords = box.xyxy.tolist()
     else:
         cv2.imshow('No Objects', image)
 
