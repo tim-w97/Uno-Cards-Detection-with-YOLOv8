@@ -5,5 +5,5 @@ model_path = '/Users/timwagner/Documents/PythonProjects/YoloUnoDetection/detecto
 fake_image_path = '/Users/timwagner/Documents/PythonProjects/YoloUnoDetection/detector/uno cards test image.jpeg'
 
 # config for the image transformer
-trapeze_margin = 500
+trapeze_margin = 450
 resize_factor = 0.4
