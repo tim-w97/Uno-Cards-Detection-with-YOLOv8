@@ -39,7 +39,6 @@ while True:
         first_result = results[0]
 
         plot = first_result.plot()
-        # cv2.imshow('Detected Uno Cards', plot)
 
         for box in first_result.boxes:
             # get coordinates of the bounding box
@@ -65,11 +64,19 @@ while True:
 
             color = determine_color(color_bgr)
 
-            print(color)
+            cv2.putText(
+                plot,
+                color.name,
+                center_right,
+                cv2.FONT_HERSHEY_SIMPLEX,
+                1,
+                (0, 0, 0),
+                2
+            )
 
-        cv2.imshow('Detected Uno Cards', transformed_image)
+        cv2.imshow('Detected Uno Cards', plot)
     else:
-        cv2.imshow('No Objects', image)
+        cv2.imshow('No Objects', transformed_image)
 
     # break the loop if the user presses escape key
     if cv2.waitKey(1) == 27:
