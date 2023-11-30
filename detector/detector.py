@@ -1,5 +1,6 @@
 from ultralytics import YOLO
 from image_transformer import transform_image
+from color_detector import determine_color
 
 import cv2
 import config
@@ -28,14 +29,35 @@ while True:
         first_result = results[0]
 
         plot = first_result.plot()
-        cv2.imshow('Detected Uno Cards', plot)
+        # cv2.imshow('Detected Uno Cards', plot)
 
         for box in first_result.boxes:
             # get coordinates of the bounding box
             # xyxy means x1 and y1 of the top left corner and x2 and y2 of the bottom right corner
-            coords = box.xyxy.tolist()
+            bounding_boxes = box.xyxy.tolist()
 
-            # pixel auf der mitte des rechten strichs ermitteln
+            # determine the position of the pixel on the center right of the bounding box
+
+            if len(bounding_boxes) == 0:
+                continue
+
+            bounding_box = bounding_boxes[0]
+
+            center_right = (
+                int(bounding_box[2]),
+                int((bounding_box[1] + bounding_box[3]) / 2)
+            )
+
+            color_bgr = transformed_image[
+                center_right[1],
+                center_right[0]
+            ]
+
+            color = determine_color(color_bgr)
+
+            print(color)
+
+        cv2.imshow('Detected Uno Cards', transformed_image)
     else:
         cv2.imshow('No Objects', image)
 
