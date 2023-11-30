@@ -32,7 +32,10 @@ while True:
 
         for box in first_result.boxes:
             # get coordinates of the bounding box
+            # xyxy means x1 and y1 of the top left corner and x2 and y2 of the bottom right corner
             coords = box.xyxy.tolist()
+
+            # pixel auf der mitte des rechten strichs ermitteln
     else:
         cv2.imshow('No Objects', image)
 
