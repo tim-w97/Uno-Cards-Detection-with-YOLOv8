@@ -5,6 +5,16 @@ from color_detector import determine_color
 import cv2
 import config
 
+import numpy
+
+
+# fix deprecation issue
+def patch_asscalar(a):
+    return a.item()
+
+
+setattr(numpy, "asscalar", patch_asscalar)
+
 # Load a model
 model = YOLO(config.model_path)
 
